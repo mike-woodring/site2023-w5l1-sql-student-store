@@ -6,3 +6,4 @@ CREATE DATABASE student_store;
 \connect student_store
 
 \i student-store-schema.sql
+\i student-store-seed.sql
