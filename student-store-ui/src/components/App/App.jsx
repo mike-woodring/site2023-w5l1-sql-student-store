@@ -9,6 +9,7 @@ import NotFound from "../NotFound/NotFound"
 import ShoppingCart from "../ShoppingCart/ShoppingCart"
 import { removeFromCart, addToCart, getQuantityOfItemInCart, getTotalItemsInCart } from "../../utils/cart"
 import "./App.css"
+import { getLoginToken } from "../../utils/authutils"
 
 export default function App() {
   const [activeCategory, setActiveCategory] = useState("All Categories")
@@ -34,6 +35,20 @@ export default function App() {
     setIsCheckingOut(true)
 
     try {
+
+      // TBD: if we have a JWT, pass it along
+      // getLoginToken()
+      const token = getLoginToken();
+
+      console.log({
+        "context": "components/App.jsx/handleOnCheckout",
+        "token": token
+      });
+
+      if (token) {
+        
+      }
+
       const res = await axios.post("http://localhost:3001/orders", { order: cart })
       if (res?.data?.order) {
         setOrders((o) => [...res.data.order, ...o])

@@ -31,6 +31,10 @@ router.get("/", security.requireAuthenticatedUser, async (req, res, next) => {
 });
 
 router.post("/", security.requireAuthenticatedUser, async (req, res, next) => {
+    console.log({
+        "context": "routes/orders.js/post('/')"
+    });
+
     const { user } = res.locals;
 
     console.log({

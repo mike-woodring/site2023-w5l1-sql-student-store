@@ -21,7 +21,7 @@ app.use(morgan("tiny"));
 app.use(security.extractUserFromJwt);
 app.use("/auth", authRoutes);
 app.use("/store", storeRoutes);
-app.use("/order", orderRoutes);
+app.use("/orders", orderRoutes);
 
 /** Handle 404 errors -- this matches everything */
 app.use((req, res, next) => {

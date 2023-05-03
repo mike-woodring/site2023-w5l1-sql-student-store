@@ -2,6 +2,7 @@ import { useEffect, useState } from "react"
 import { Link, useNavigate } from "react-router-dom"
 import axios from "axios"
 import "./Login.css"
+import { storeLoginToken } from "../../utils/authutils"
 
 export default function Login({ user, setUser }) {
   const navigate = useNavigate()
@@ -40,6 +41,19 @@ export default function Login({ user, setUser }) {
       const res = await axios.post("http://localhost:3001/auth/login", form)
       if (res?.data?.user) {
         setUser(res.data.user)
+
+        console.log({
+          "context": "components/Login.jsx/handleOnSubmit",
+          "res.data.user": res.data.user
+        });
+
+        if (res?.data?.token) {
+          console.log({
+            "context": "components/Login.jsx/handleOnSubmit",
+            "res.data.token": res.data.token
+          });
+          storeLoginToken(res.data.token);
+        }
       } else {
         setErrors((e) => ({ ...e, form: "Invalid username/password combination" }))
       }

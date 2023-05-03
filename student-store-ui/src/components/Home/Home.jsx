@@ -24,6 +24,7 @@ export default function Home({
   const location = useLocation()
 
   useEffect(() => {
+    // some silly react router magic to get hash links to work
     if (location.hash) {
       const el = document.querySelector(location.hash)
       if (el) {
@@ -31,6 +32,15 @@ export default function Home({
       }
     }
   }, [location.hash])
+
+  const productsByCategory =
+    Boolean(activeCategory) && activeCategory.toLowerCase() !== "all categories"
+      ? products.filter((p) => p.category === activeCategory.toLowerCase())
+      : products
+
+  const productsToShow = Boolean(searchInputValue)
+    ? productsByCategory.filter((p) => p.name.toLowerCase().indexOf(searchInputValue))
+    : productsByCategory
 
   return (
     <div className="Home">
@@ -45,7 +55,7 @@ export default function Home({
       <Hero />
       <About />
       <ProductGrid
-        products={products}
+        products={productsToShow}
         isFetching={isFetching}
         addToCart={addToCart}
         removeFromCart={removeFromCart}
