@@ -1,5 +1,6 @@
 const express = require("express");
 const User = require("../models/user");
+const Order = require("../models/order");
 const { createUserJwt } = require("../utils/tokens");
 const security = require("../middleware/security");
 const router = express.Router();
@@ -42,7 +43,7 @@ router.get("/me", security.requireAuthenticatedUser, async (req, res, next) => {
   try {
     const { email } = res.locals.user;
     const user = await User.fetchUserByEmail(email);
-    const publicUser = User.makePublicUser(user);
+    const orders = await Order.listOrdersForUser(user)
 
     console.log({
       "context": "auth.js/post('/me')",
@@ -51,7 +52,7 @@ router.get("/me", security.requireAuthenticatedUser, async (req, res, next) => {
       "publicUser": publicUser
     });
 
-    return res.status(200).json({ user: publicUser });
+    return res.status(200).json({ user, orders });
   } catch(err) {
     next(err);
   }
