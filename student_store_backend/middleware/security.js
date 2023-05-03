@@ -1,5 +1,5 @@
 const jwt = require("jsonwebtoken");
-const { SECRET_KEY } = require("./config");
+const { SECRET_KEY } = require("../config");
 const { UnauthorizedError } = require("../utils/errors");
 
 const jwtFrom = ({headers}) => {
@@ -27,9 +27,7 @@ const jwtFrom = ({headers}) => {
 const extractUserFromJwt = (req, res, next) => {
     try {
         console.log({
-            "context": "extractUserFromJwt",
-            "scheme": scheme,
-            "token": token
+            "context": "extractUserFromJwt"
         });
 
         const token = jwtFrom(req);

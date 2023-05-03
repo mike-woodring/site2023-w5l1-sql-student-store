@@ -1,5 +1,5 @@
-const jwt = require("jwt");
-const { SECRET_KEY } = require("./config");
+const jwt = require("jsonwebtoken");
+const { SECRET_KEY } = require("../config");
 
 // Create a function called generateToken that accepts a data parameter and returns a signed token using the jsonwebtoken package and the SECRET_KEY.
 //
